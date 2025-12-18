@@ -1,0 +1,13 @@
+#OS files
+.DS_Store
+.vscode/
+
+#Enviroment files
+Client/tunepeep/.env 
+Server/MusicServer/.env
+.env
+*.env
+
+#Private Files
+mongosh.txt
+Notes.txt
