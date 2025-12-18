@@ -2,6 +2,19 @@
 .DS_Store
 .vscode/
 
+# Node
+Client/tunepeep/dist/
+Client/tunepeep/node_modules/
+node_modules/
+dist/
+
+#Go Build
+Server/MusicServer/app
+Server/MusicServer/bin
+*.exe
+*.dll
+*.out
+
 #Enviroment files
 Client/tunepeep/.env 
 Server/MusicServer/.env
