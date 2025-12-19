@@ -28,14 +28,14 @@ func main() {
 	// Health check endpoint
 	// c is the context from the incoming client which allows us to call various functionalities on the c function handler method
 	// This is a test endpoint to verify the server is running
-	router.GET("/hello", func(c *gin.Context) { // go to localhost http://localhost:8082/hello
+	router.GET("/hello", func(c *gin.Context) { // go to localhost http://localhost:8080/hello
 		c.String(200, "Hello! We are online!") // http status 200 (success)
 	})
 
 	// Load environment variables from .env file
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Unable to find .env file")
+		log.Println("Unable to find .env file for main")
 	}
 
 	 //----------------------------
@@ -112,7 +112,7 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 
 	// Start the HTTP server on port 8082
 	// Server not working: this error message will display if the server fails to start
-	if err := router.Run(":8082"); err != nil { // port 8082
+	if err := router.Run(":8080"); err != nil { // port 8080
 		fmt.Println("Server failed, dude!", err)
 	}
 }

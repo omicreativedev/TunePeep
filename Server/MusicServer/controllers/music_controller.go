@@ -212,7 +212,7 @@ func GetReviewRanking(admin_review string, client *mongo.Client, c *gin.Context)
 		err = godotenv.Load(".env")
 
 		if err != nil {
-			log.Println("Warning: .env file not found")
+			log.Println("Warning: .env file not found for music_controller")
 		}
 
 		AiApiKey := os.Getenv("API_KEY")
@@ -292,7 +292,7 @@ func GetRecommendedMusics(client *mongo.Client) gin.HandlerFunc{
 		 }
 		 err = godotenv.Load(".env")
 		 if err != nil{
-			log.Println("Warning .env file not found")
+			log.Println("Warning .env file not found for music_controller")
 			}
 
 			var recommendedMusicLimitVal int64 = 5	

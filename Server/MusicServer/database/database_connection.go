@@ -23,7 +23,7 @@ func Connect() *mongo.Client {
 	err := godotenv.Load(".env")
 
 	if err != nil {
-		log.Println("Warning: unable to fund .env file")
+		log.Println("Warning: unable to fund .env file for database_connection")
 	}
 
 	MongoDb := os.Getenv("MONGODB_URI")
@@ -52,7 +52,7 @@ func OpenCollection(collectionName string, client *mongo.Client) *mongo.Collecti
  // Open specified collection in specified database
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Warning: unable to find .env file")
+		log.Println("Warning: unable to find .env file for database_connection")
 	}
 
 	databaseName := os.Getenv("DATABASE_NAME")
