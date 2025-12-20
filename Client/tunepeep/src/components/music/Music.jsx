@@ -1,8 +1,46 @@
+import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons/faStar"; // ADDED
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
+import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./Music.css";
+
+// Helper function to render stars based on ranking
+const renderRankingStars = (rankingValue) => {
+	if (rankingValue === 999) {
+		return <span className="text-muted">Not Yet Rated</span>;
+	}
+
+	// Map ranking values to number of stars (1 = 5 stars, 2 = 4 stars, etc.)
+	const starCount = 6 - rankingValue; // Converts 1→5, 2→4, 3→3, 4→2, 5→1
+
+	return (
+		<div className="star-rating">
+			{[...Array(5)].map((_, index) => (
+				<FontAwesomeIcon
+					key={index}
+					icon={index < starCount ? faStar : faStarEmpty}
+					className={index < starCount ? "text-warning" : "text-secondary"}
+					style={{ marginRight: "2px" }}
+				/>
+			))}
+			<span className="ms-2 small text-muted">
+				(
+				{rankingValue === 1
+					? "Excellent"
+					: rankingValue === 2
+					? "Good"
+					: rankingValue === 3
+					? "Okay"
+					: rankingValue === 4
+					? "Bad"
+					: "Terrible"}
+				)
+			</span>
+		</div>
+	);
+};
 
 const Music = ({ music, updateMusicReview }) => {
 	return (
@@ -29,16 +67,27 @@ const Music = ({ music, updateMusicReview }) => {
 					</div>
 					<div className="card-body d-flex flex-column">
 						<h5 className="card-title">{music.title}</h5>
-						<p className="card-text mb-2">{music.music_id}</p>
+						{/* <p className="card-text mb-2">{music.music_id}</p> */}
 					</div>
-					{music.ranking?.ranking_name && (
+
+					{/* {music.ranking?.ranking_name && (
 						<span
 							className="badge bg-success m-3 p-2"
 							style={{ fontSize: "1rem" }}
 						>
 							{music.ranking.ranking_name}
 						</span>
-					)}
+					)} */}
+
+					{/* Replace the badge with star rating */}
+					<div className="m-3 p-2">
+						{music.ranking?.ranking_value ? (
+							renderRankingStars(music.ranking.ranking_value)
+						) : (
+							<span className="text-muted">No Rating</span>
+						)}
+					</div>
+
 					{updateMusicReview && (
 						<Button
 							variant="outline-success"
@@ -48,7 +97,7 @@ const Music = ({ music, updateMusicReview }) => {
 							}}
 							className="m-3"
 						>
-							Review
+							Information
 						</Button>
 					)}
 				</div>

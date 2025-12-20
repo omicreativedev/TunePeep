@@ -30,7 +30,7 @@ const Header = ({ handleLogout }) => {
 						height="30"
 						className="d-inline-block align-top me-2"
 					/>
-					Stream Name
+					TunePeep
 				</Navbar.Brand>
 
 				<Navbar.Toggle aria-controls="main-navbar-nav" />
