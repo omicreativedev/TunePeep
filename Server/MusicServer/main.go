@@ -59,8 +59,8 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 			log.Println("Allowed Origin:", origins[i])
 		}
 	} else {
-		origins = []string{"http://localhost:8070"}
-		log.Println("Allowed Origin: http://localhost:8070")
+		origins = []string{"http://localhost:8070"} // Change this for production
+		log.Println("Allowed Origin: http://localhost:8070") // Change this for production
 	}
 
 	config := cors.Config{}
@@ -103,15 +103,9 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 	// Protected routes (require authentication)
 	routes.SetupProtectedRoutes(router, client)
 	
-	// Moved to /routes package
-	// router.GET("/music", controller.GetMusics())
-	// router.GET("/music/:music_id", controller.GetMusic())
-	// router.POST("/addmusic", controller.AddMusic())
-	// router.POST("/register", controller.RegisterUser())
-	// router.POST("/login", controller.LoginUser())
-
-	// Start the HTTP server on port 8082
+	// Start the HTTP server on port 8080
 	// Server not working: this error message will display if the server fails to start
+	// We want it to be 8080 for Render.com but it can change
 	if err := router.Run(":8080"); err != nil { // port 8080
 		fmt.Println("Server failed, dude!", err)
 	}

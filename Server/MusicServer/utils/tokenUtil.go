@@ -13,6 +13,14 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
+/*
+This file provides JWT token management and authentication validation.
+It handles token generation, verification, database storage, and
+retrieving authenticated user information from a request after token
+validation to secure API endpoints and maintain user sessions.
+*/
+
+// JWT claims structure
 type SignedDetails struct {
 	Email     string
 	FirstName string
@@ -22,10 +30,20 @@ type SignedDetails struct {
 	jwt.RegisteredClaims
 }
 
+// Load JWT keys from environment
 var SECRET_KEY string = os.Getenv("SECRET_KEY")
 var SECRET_REFRESH_KEY string = os.Getenv("SECRET_REFRESH_KEY")
 
-func GenerateAllTokens(email, firstName, lastName, role, userId string) (string, string, error) {
+// Constants for token expiration
+const (
+	accessTokenExpiration  = 24 * time.Hour
+	refreshTokenExpiration = 24 * 7 * time.Hour
+	issuerName         = "TunePeep"
+)
+
+// createToken generates a single JWT token
+func createToken(email, firstName, lastName, role, userId string, 
+                 expiration time.Duration, secret string) (string, error) {
 	claims := &SignedDetails{
 		Email:     email,
 		FirstName: firstName,
@@ -33,59 +51,59 @@ func GenerateAllTokens(email, firstName, lastName, role, userId string) (string,
 		Role:      role,
 		UserId:    userId,
 		RegisteredClaims: jwt.RegisteredClaims{
-			Issuer:    "TunePeep",
+			Issuer:    issuerName,
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiration)),
 		},
 	}
+	
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	signedToken, err := token.SignedString([]byte(SECRET_KEY))
-
-	if err != nil {
-		return "", "", err
-	}
-
-	refreshClaims := &SignedDetails{
-		Email:     email,
-		FirstName: firstName,
-		LastName:  lastName,
-		Role:      role,
-		UserId:    userId,
-		RegisteredClaims: jwt.RegisteredClaims{
-			Issuer:    "TunePeep",
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * 7 * time.Hour)),
-		},
-	}
-	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
-	signedRefreshToken, err := refreshToken.SignedString([]byte(SECRET_REFRESH_KEY))
-
-	if err != nil {
-		return "", "", err
-	}
-
-	return signedToken, signedRefreshToken, nil
-
+	return token.SignedString([]byte(secret))
 }
 
+// GenerateAllTokens creates new access and refresh tokens
+func GenerateAllTokens(email, firstName, lastName, role, userId string) (string, string, error) {
+	// Create access token
+	signedToken, err := createToken(email, firstName, lastName, role, userId, 
+		accessTokenExpiration, SECRET_KEY)
+	if err != nil {
+		return "", "", err
+	}
+	
+	// Create refresh token
+	signedRefreshToken, err := createToken(email, firstName, lastName, role, userId,
+		refreshTokenExpiration, SECRET_REFRESH_KEY)
+	if err != nil {
+		return "", "", err
+	}
+	
+	// Return both tokens
+	return signedToken, signedRefreshToken, nil
+}
+
+// UpdateAllTokens stores tokens in database
 func UpdateAllTokens(userId, token, refreshToken string, client *mongo.Client) (err error) {
-	// clean up code
+	// Create timeout context
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+	// Cleanup
 	defer cancel()
 
-	updateAt, _ := time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	// Get current timestamp (simplified)
+	updateAt := time.Now()
 
+	// Prepare update data
 	updateData := bson.M{
 		"$set": bson.M{
-			"token":         token,
-			"refresh_token": refreshToken,
-			"update_at":     updateAt,
+			"token":         token,         // Set access token
+			"refresh_token": refreshToken,  // Set refresh token
+			"update_at":     updateAt,      // Set update timestamp
 		},
 	}
 
+	// Get users collection
 	var userCollection *mongo.Collection = database.OpenCollection("users", client)
-	// update specific user tokens
 
+	// Update user document
 	_, err = userCollection.UpdateOne(ctx, bson.M{"user_id": userId}, updateData)
 
 	if err != nil {
@@ -94,113 +112,76 @@ func UpdateAllTokens(userId, token, refreshToken string, client *mongo.Client) (
 	return nil
 }
 
-// https://datatracker.ietf.org/doc/html/rfc6750
+// Reference: https://datatracker.ietf.org/doc/html/rfc6750
 
-func GetAccessToken(c *gin.Context)(string,error){
-	// authHeader := c.Request.Header.Get("Authorization")
-
-	// if authHeader == "" {
-	// 	return "", errors.New("authorization header required")
-	// }
-
-	// tokenString := authHeader[len("Bearer "):]
-
-	// if tokenString == "" {
-	// 	return "", errors.New("bearer token is required")
-	// }
-
-	tokenString, err:=c.Cookie("access_token")
-	if err !=nil {
+// Get token from cookie
+func GetAccessToken(c *gin.Context) (string, error) {
+	tokenString, err := c.Cookie("access_token")
+	if err != nil {
 		return "", err
 	}
 
+	// Return token string
 	return tokenString, nil
-	
 }
 
-// https://pkg.go.dev/github.com/golang-jwt/jwt/v5#SigningMethodHMAC
-// https://pkg.go.dev/github.com/golang-jwt/jwt/v5#ParseWithClaims
-func ValidateToken(tokenString string)(*SignedDetails,error){
-		claims := &SignedDetails{}
-
-		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token)(interface{},error){
-			return []byte(SECRET_KEY), nil
-		})
-
-		if err != nil{
-			return nil, err
-		}
-
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, err
-		}
-
-		if claims.ExpiresAt.Time.Before(time.Now()){
-			return nil, errors.New("token expired")
-		}
-
-		return claims, nil
-}
-
-
-// Rankings
-
-func GetUserIdFromContext(c *gin.Context)(string, error){
-
-	userId, exists := c.Get("userId")
-
-	if !exists {
-		return "", errors.New("userId does not exist in this context")
-	}
-
-	id, ok := userId.(string)
-
-	if !ok {
-
-	return "", errors.New("unable to return userId")
-	}
-
-	return id, nil
-}
-
-// Copy of GetUserIdFromContext
-func GetRoleFromContext(c *gin.Context)(string, error){
-
-	role, exists := c.Get("role")
-
-	if !exists {
-		return "", errors.New("role does not exist in this context")
-	}
-
-	memberRole, ok := role.(string)
-
-	if !ok {
-
-	return "", errors.New("unable to return role")
-	}
-
-	return memberRole, nil
-}
-
-
-func ValidateRefreshToken(tokenString string) (*SignedDetails, error) {
+// Validate JWT token with secret
+func validateTokenHelper(tokenString string, secretKey string) (*SignedDetails, error) {
 	claims := &SignedDetails{}
+	
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-
-		return []byte(SECRET_REFRESH_KEY), nil
+		return []byte(secretKey), nil
 	})
 
 	if err != nil {
 		return nil, err
 	}
 
+	// Verify signing method
 	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-		return nil, err
+		return nil, errors.New("invalid signing method")
 	}
 
+	// Check token expiration
 	if claims.ExpiresAt.Time.Before(time.Now()) {
-		return nil, errors.New("refresh token has expired")
+		return nil, errors.New("token expired")
 	}
 
 	return claims, nil
+}
+
+// ValidateToken verifies access token signature and expiration
+func ValidateToken(tokenString string) (*SignedDetails, error) {
+	return validateTokenHelper(tokenString, SECRET_KEY)
+}
+
+// GetFromContext extracts any value from Gin context with type safety
+func GetFromContext(c *gin.Context, key string) (string, error) {
+	value, exists := c.Get(key)
+	
+	if !exists {
+		return "", errors.New(key + " does not exist in this context")
+	}
+	
+	strValue, ok := value.(string)
+	if !ok {
+		return "", errors.New("Not able to return " + key)
+	}
+	
+	return strValue, nil
+}
+
+// GetUserIdFromContext gets userId from Gin context
+func GetUserIdFromContext(c *gin.Context) (string, error) {
+	return GetFromContext(c, "userId")
+}
+
+// GetRoleFromContext gets role from Gin context
+func GetRoleFromContext(c *gin.Context) (string, error) {
+	return GetFromContext(c, "role")
+}
+
+// Verify refresh token signature expiration
+func ValidateRefreshToken(tokenString string) (*SignedDetails, error) {
+	return validateTokenHelper(tokenString, SECRET_REFRESH_KEY)
 }

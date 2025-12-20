@@ -18,7 +18,7 @@ type User struct {
 	UpdatedAt       time.Time     `json:"update_at" bson:"update_at"`
 	Token           string        `json:"token" bson:"token"`
 	RefreshToken    string        `json:"refresh_token" bson:"refresh_token"`
-	FavouriteGenres []Genre       `json:"favourite_genres" bson:"favourite_genres" validate:"required,dive"`
+	FavoriteGenres []Genre       `json:"favorite_genres" bson:"favorite_genres" validate:"required,dive"`
 }
 type UserLogin struct {
 	Email    string `json:"email" validate:"required,email"`
@@ -32,5 +32,5 @@ type UserResponse struct {
 	Role            string  `json:"role"`
 	Token           string  `json:"token"`
 	RefreshToken    string  `json:"refresh_token"`
-	FavouriteGenres []Genre `json:"favourite_genres"`
+	FavoriteGenres []Genre `json:"favorite_genres"`
 }

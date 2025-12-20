@@ -12,7 +12,7 @@ const Register = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [favouriteGenres, setFavouriteGenres] = useState([]);
+	const [favoriteGenres, setFavoriteGenres] = useState([]);
 	const [genres, setGenres] = useState([]);
 
 	const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ const Register = () => {
 
 	const handleGenreChange = (e) => {
 		const options = Array.from(e.target.selectedOptions);
-		setFavouriteGenres(
+		setFavoriteGenres(
 			options.map((opt) => ({
 				genre_id: Number(opt.value),
 				genre_name: opt.label,
@@ -49,7 +49,7 @@ const Register = () => {
 				email,
 				password,
 				role: defaultRole,
-				favourite_genres: favouriteGenres,
+				favorite_genres: favoriteGenres,
 			};
 			const response = await axiosClient.post("/register", payload);
 			if (response.data.error) {
@@ -147,7 +147,7 @@ const Register = () => {
 					<Form.Group>
 						<Form.Select
 							multiple
-							value={favouriteGenres.map((g) => String(g.genre_id))}
+							value={favoriteGenres.map((g) => String(g.genre_id))}
 							onChange={handleGenreChange}
 						>
 							{genres.map((genre) => (

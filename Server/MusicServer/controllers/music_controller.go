@@ -23,12 +23,9 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-
-
 var validate = validator.New()
 
-// Public function. Hook into web framework. Return function of type gin.HandlerFunc
-// through the context object(c) passed to the function. Create http responses.
+
 func GetMusics(client *mongo.Client) gin.HandlerFunc {
 		return func(c *gin.Context){
 			// c.JSON(200, gin.H{"message":"List of Albums"})
@@ -43,24 +40,25 @@ func GetMusics(client *mongo.Client) gin.HandlerFunc {
 
 			if err !=nil{
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch music"})
+				return 
 			}
 
 			defer cursor.Close(ctx)
 
 			if err = cursor.All(ctx, &musics); err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to decode music"})
+				return  
 			}
 			c.JSON(http.StatusOK,musics)
 		}
 }
-
 
 func GetMusic(client *mongo.Client) gin.HandlerFunc {
 
 	return func(c *gin.Context){
 
 			ctx, cancel := context.WithTimeout(c, 100*time.Second)
-			defer cancel() // clean up if err
+			defer cancel() 
 
 			musicID := c.Param("music_id")
 
@@ -82,7 +80,6 @@ func GetMusic(client *mongo.Client) gin.HandlerFunc {
 	}
 
 }
-
 
 func AddMusic(client *mongo.Client) gin.HandlerFunc {
     return func(c *gin.Context){
@@ -113,13 +110,10 @@ func AddMusic(client *mongo.Client) gin.HandlerFunc {
     }
 }
 
-// Ranking System
-
 // From: https://github.com/tmc/langchaingo/blob/main/examples/openai-completion-example/main.go
 
 func AdminReviewUpdate(client *mongo.Client) gin.HandlerFunc{
 	return func(c *gin.Context){
-
 
 		// Start Admin Authorization -- from tokenUtil.go
 
@@ -168,12 +162,13 @@ func AdminReviewUpdate(client *mongo.Client) gin.HandlerFunc{
 				},
 			},
 		}
-		var ctx, cancel = context.WithTimeout(c, 100*time.Second)
-		defer cancel()
+		
+		var updateCtx, updateCancel = context.WithTimeout(c, 100*time.Second)
+		defer updateCancel()
 		
 		var musicCollection *mongo.Collection = database.OpenCollection("musics", client)
 
-		result, err := musicCollection.UpdateOne(ctx, filter, update)
+		result, err := musicCollection.UpdateOne(updateCtx, filter, update)
 
 			if err != nil{
 			c.JSON(http.StatusInternalServerError, gin.H{"error":"Error updating music"})
@@ -247,7 +242,6 @@ func GetReviewRanking(admin_review string, client *mongo.Client, c *gin.Context)
 		}
 
 		return response, rankVal, nil
-
 }
 
 func GetRankings(client *mongo.Client, c *gin.Context)([]models.Ranking, error){
@@ -283,7 +277,7 @@ func GetRecommendedMusics(client *mongo.Client) gin.HandlerFunc{
 			return
 		 }
 
-		 favourite_genres, err := GetUsersFavouriteGenres(userId, client, c)
+		 favorite_genres, err := GetUsersFavoriteGenres(userId, client, c)
 
 		 if err != nil{
 
@@ -300,8 +294,14 @@ func GetRecommendedMusics(client *mongo.Client) gin.HandlerFunc{
 			recommendedMusicLimitStr := os.Getenv("RECOMMENDED_MUSIC_LIMIT")
 			
 			if recommendedMusicLimitStr != ""{
-				recommendedMusicLimitVal, _ = strconv.ParseInt(recommendedMusicLimitStr, 10, 64)
-			}
+    parsedVal, parseErr := strconv.ParseInt(recommendedMusicLimitStr, 10, 64)
+    if parseErr != nil {
+        log.Printf("Warning: Invalid RECOMMENDED_MUSIC_LIMIT value '%s', using default 5", recommendedMusicLimitStr)
+        recommendedMusicLimitVal = 5
+    } else {
+        recommendedMusicLimitVal = parsedVal
+    }
+}
 
 			findOptions := options.Find()
 
@@ -309,7 +309,7 @@ func GetRecommendedMusics(client *mongo.Client) gin.HandlerFunc{
 
 			findOptions.SetLimit(recommendedMusicLimitVal)
 
-			filter := bson.M{"genre.genre_name" : bson.M{"$in":favourite_genres}}
+			filter := bson.M{"genre.genre_name" : bson.M{"$in":favorite_genres}}
 
 			var ctx, cancel = context.WithTimeout(c, 100*time.Second)
 			defer cancel()
@@ -337,7 +337,7 @@ func GetRecommendedMusics(client *mongo.Client) gin.HandlerFunc{
 	 }
 }
 
-func GetUsersFavouriteGenres(userId string, client *mongo.Client, c *gin.Context)([]string, error){
+func GetUsersFavoriteGenres(userId string, client *mongo.Client, c *gin.Context)([]string, error){
 
 		var ctx, cancel = context.WithTimeout(c, 100*time.Second)
 		defer cancel()
@@ -345,7 +345,7 @@ func GetUsersFavouriteGenres(userId string, client *mongo.Client, c *gin.Context
 		filter := bson.M{"user_id":userId}
 
 		projection := bson.M{
-		"favourite_genres.genre_name": 1,
+		"favorite_genres.genre_name": 1,
 		"_id":                         0,
 		}
 
@@ -363,7 +363,7 @@ func GetUsersFavouriteGenres(userId string, client *mongo.Client, c *gin.Context
 			return nil, err
 		}
 
-		favGenresArray, ok := result["favourite_genres"].(bson.A)
+		favGenresArray, ok := result["favorite_genres"].(bson.A)
 
 		if !ok {
 			return []string{}, errors.New("unable to get favorite genres for user")
@@ -410,10 +410,6 @@ func GetGenres(client *mongo.Client) gin.HandlerFunc {
 
 	}
 }
-
-// NEW
-
-// EDIT
 
 func EditMusic(client *mongo.Client) gin.HandlerFunc {
     return func(c *gin.Context){
@@ -614,7 +610,6 @@ func validateGenreField(value interface{}) (interface{}, error) {
     return validatedGenres, nil
 }
 
-// DELETE
 
 func DeleteMusic(client *mongo.Client) gin.HandlerFunc {
     return func(c *gin.Context){
