@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d50f"
+  },
+  "genre_id": 1,
+  "genre_name": "Pop"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d510"
+  },
+  "genre_id": 2,
+  "genre_name": "Rock"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d511"
+  },
+  "genre_id": 3,
+  "genre_name": "Rap"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d512"
+  },
+  "genre_id": 4,
+  "genre_name": "R&B"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d513"
+  },
+  "genre_id": 5,
+  "genre_name": "Country"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d514"
+  },
+  "genre_id": 6,
+  "genre_name": "Jazz"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d515"
+  },
+  "genre_id": 7,
+  "genre_name": "Electronic"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d516"
+  },
+  "genre_id": 8,
+  "genre_name": "Classical"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d517"
+  },
+  "genre_id": 9,
+  "genre_name": "Metal"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d518"
+  },
+  "genre_id": 10,
+  "genre_name": "Folk"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d519"
+  },
+  "genre_id": 11,
+  "genre_name": "Alternative"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d51a"
+  },
+  "genre_id": 12,
+  "genre_name": "Indie"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d51b"
+  },
+  "genre_id": 13,
+  "genre_name": "Grunge"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d51c"
+  },
+  "genre_id": 14,
+  "genre_name": "Punk"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d51d"
+  },
+  "genre_id": 15,
+  "genre_name": "Emo"
+},
+{
+  "_id": {
+    "$oid": "6922b99325ef0dc30037d51e"
+  },
+  "genre_id": 16,
+  "genre_name": "Funk"
+}]

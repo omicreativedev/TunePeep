@@ -1,0 +1,163 @@
+[{
+  "_id": {
+    "$oid": "6922b9ac25ef0dc30037d536"
+  },
+  "user_id": "68385b9981097c6b4042dab4",
+  "first_name": "Salome",
+  "last_name": "Shunamon",
+  "email": "shunamon@simmons.edu",
+  "password": "$2a$10$FAd/ArLwxQ3WbNE3XKbyveRHidTpW9g84hX2CPr0tWdGGerrP6.3K",
+  "role": "ADMIN",
+  "created_at": {
+    "$date": "2025-05-29T13:05:29.000Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-29T13:06:51.000Z"
+  },
+  "token": "",
+  "refresh_token": "",
+  "update_at": {
+    "$date": "2025-12-21T04:57:21.655Z"
+  },
+  "favorite_genres": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 4,
+      "genre_name": "R&B"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6922b9ac25ef0dc30037d537"
+  },
+  "user_id": "684535a8c3d7e6b4ac1c5203",
+  "first_name": "Sammy",
+  "last_name": "Simmons",
+  "email": "sammysimmons@hotmail.com",
+  "password": "$2a$10$w0H8AI/xigWiq0hGsjyfqeWAR5d6oErWE4b7sz9uwCTKMwRIv49YW",
+  "role": "USER",
+  "created_at": {
+    "$date": "2025-06-08T07:03:04.865Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-23T09:26:11.000Z"
+  },
+  "token": "",
+  "refresh_token": "",
+  "favorite_genres": [
+    {
+      "genre_id": 5,
+      "genre_name": "Country"
+    },
+    {
+      "genre_id": 6,
+      "genre_name": "Jazz"
+    },
+    {
+      "genre_id": 8,
+      "genre_name": "Classical"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6922b9ac25ef0dc30037d538"
+  },
+  "user_id": "68512bc5a29d3bfe81637e3f",
+  "first_name": "Susie",
+  "last_name": "Simmons",
+  "email": "susiesimmons@hotmail.com",
+  "password": "$2a$10$0rCBUYy4ZlTzuxcf20XV1.s7UVTbtkXkARQmzb3vstja4uDnp.NS.",
+  "role": "USER",
+  "created_at": {
+    "$date": "2025-06-17T08:48:05.649Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-17T08:48:05.649Z"
+  },
+  "token": "",
+  "refresh_token": "",
+  "favorite_genres": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 5,
+      "genre_name": "Country"
+    },
+    {
+      "genre_id": 6,
+      "genre_name": "Jazz"
+    }
+  ],
+  "update_at": {
+    "$date": "2025-12-20T16:38:46.102Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6926e586b84613f67e6d9a6a"
+  },
+  "user_id": "6926e586b84613f67e6d9a69",
+  "first_name": "Sally",
+  "last_name": "Simmons",
+  "email": "sallysimmons@hotmail.com",
+  "password": "$2a$10$1Y4lCoPL3iMEC6yywoutgux6k//LADmXacRcHqzSVUil6Q.8IWiJ2",
+  "role": "ADMIN",
+  "created_at": {
+    "$date": "2025-11-26T11:33:26.489Z"
+  },
+  "update_at": {
+    "$date": "2025-12-16T14:10:41.000Z"
+  },
+  "token": "",
+  "refresh_token": "",
+  "favorite_genres": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "69477e5876e2073d9d9a255c"
+  },
+  "user_id": "69477e5876e2073d9d9a255b",
+  "first_name": "Demo",
+  "last_name": "Admin",
+  "email": "demo@hotmail.com",
+  "password": "$2a$10$yndwP9xnnvj0GCD8ACu61.ksJDt6bn3t9wFekk2.WowOcu/EzLZry",
+  "role": "USER",
+  "created_at": {
+    "$date": "2025-12-21T04:58:00.873Z"
+  },
+  "update_at": {
+    "$date": "2025-12-21T04:58:00.873Z"
+  },
+  "token": "",
+  "refresh_token": "",
+  "favorite_genres": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 3,
+      "genre_name": "Rap"
+    }
+  ]
+}]
