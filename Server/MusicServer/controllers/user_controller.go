@@ -129,9 +129,9 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Value: token,
 			Path:  "/",
 			MaxAge:   86400,
-			Secure:   false,
+			Secure: c.Request.URL.Scheme == "https",
 			HttpOnly: true,
-			SameSite: http.SameSiteLaxMode,
+			SameSite: http.SameSiteNoneMode,
 		})
 
 		// HTTP-only cookies
@@ -140,9 +140,9 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Value: refreshToken,
 			Path:  "/",
 			MaxAge:   604800,
-			Secure:   false,
+			Secure: c.Request.URL.Scheme == "https",
 			HttpOnly: true,
-			SameSite: http.SameSiteLaxMode,
+			SameSite: http.SameSiteNoneMode,
 		})
 	
 			c.JSON(http.StatusOK, models.UserResponse{
@@ -183,9 +183,9 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 			Value: "",
 			Path:  "/",
 			MaxAge:   -1,
-			Secure:   false,
+			Secure: c.Request.URL.Scheme == "https",
 			HttpOnly: true,
-			SameSite: http.SameSiteLaxMode,
+			SameSite: http.SameSiteNoneMode,
 		})
 
 		http.SetCookie(c.Writer, &http.Cookie{
@@ -193,9 +193,9 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 			Value:    "",
 			Path:     "/",
 			MaxAge:   -1,
-			Secure:   false, 
+			Secure: c.Request.URL.Scheme == "https",
 			HttpOnly: true,
-			SameSite: http.SameSiteLaxMode,
+			SameSite: http.SameSiteNoneMode,
 		})
 
 		c.JSON(http.StatusOK, gin.H{"message": "Logged out successfully"})
@@ -244,9 +244,9 @@ func RefreshTokenHandler(client *mongo.Client) gin.HandlerFunc {
     Value:    newToken,
     Path:     "/",
     MaxAge:   86400,
-		Secure:   false, 
+		Secure: c.Request.URL.Scheme == "https",
 		HttpOnly: true,
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 })
 
 http.SetCookie(c.Writer, &http.Cookie{
@@ -254,9 +254,9 @@ http.SetCookie(c.Writer, &http.Cookie{
     Value:    newRefreshToken,
     Path:     "/",
     MaxAge:   604800,
-		Secure:   false, 
+		Secure: c.Request.URL.Scheme == "https",
 		HttpOnly: true,
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 })
 
 		c.JSON(http.StatusOK, gin.H{"message": "Tokens refreshed"})
