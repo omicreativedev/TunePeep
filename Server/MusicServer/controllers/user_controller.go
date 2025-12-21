@@ -129,7 +129,7 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Value: token,
 			Path:  "/",
 			MaxAge:   86400,
-			Secure:  true
+			Secure:  true,
 			HttpOnly: true,
 			SameSite: http.SameSiteNoneMode,
 		})
@@ -140,7 +140,7 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Value: refreshToken,
 			Path:  "/",
 			MaxAge:   604800,
-			Secure: true
+			Secure: true,
 			HttpOnly: true,
 			SameSite: http.SameSiteNoneMode,
 		})
@@ -183,7 +183,7 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 			Value: "",
 			Path:  "/",
 			MaxAge:   -1,
-			Secure: true
+			Secure: true,
 			HttpOnly: true,
 			SameSite: http.SameSiteNoneMode,
 		})
@@ -193,7 +193,7 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 			Value:    "",
 			Path:     "/",
 			MaxAge:   -1,
-			Secure: true
+			Secure: true,
 			HttpOnly: true,
 			SameSite: http.SameSiteNoneMode,
 		})
@@ -244,7 +244,7 @@ func RefreshTokenHandler(client *mongo.Client) gin.HandlerFunc {
     Value:    newToken,
     Path:     "/",
     MaxAge:   86400,
-		Secure: true
+		Secure: true,
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
 })
@@ -254,7 +254,7 @@ http.SetCookie(c.Writer, &http.Cookie{
     Value:    newRefreshToken,
     Path:     "/",
     MaxAge:   604800,
-		Secure: true
+		Secure: true,
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
 })
