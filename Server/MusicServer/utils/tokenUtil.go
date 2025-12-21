@@ -14,10 +14,7 @@ import (
 )
 
 /*
-This file provides JWT token management and authentication validation.
-It handles token generation, verification, database storage, and
-retrieving authenticated user information from a request after token
-validation to secure API endpoints and maintain user sessions.
+This file provides JWT token management and authentication validation. It handles token generation, verification, database storage, and retrieving authenticated user information from a request after token validation to secure API endpoints and maintain user sessions.
 */
 
 // JWT claims structure

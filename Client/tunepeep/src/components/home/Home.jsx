@@ -3,6 +3,8 @@ import axiosClient from "../../api/axiosConfig";
 import Musics from "../musics/Musics";
 import Spinner from "../spinner/Spinner";
 
+/* This file is the homepage that displays all available music albums. It loads music data from the API. */
+
 const Home = ({ updateMusicReview }) => {
 	const [musics, setMusics] = useState([]);
 	const [loading, setLoading] = useState(false);

@@ -6,14 +6,16 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./Music.css";
 
+/* This file creates an individual music card that displays album art, title, and star ratings. It includes a play button overlay and an information button that goes to the  review page when clicked. */
+
 // Helper function to render stars based on ranking
 const renderRankingStars = (rankingValue) => {
 	if (rankingValue === 999) {
 		return <span className="text-muted">Not Yet Rated</span>;
 	}
 
-	// Map ranking values to number of stars (1 = 5 stars, 2 = 4 stars, etc.)
-	const starCount = 6 - rankingValue; // Converts 1→5, 2→4, 3→3, 4→2, 5→1
+	// Map ranking values to number of stars
+	const starCount = 6 - rankingValue;
 
 	return (
 		<div className="star-rating">

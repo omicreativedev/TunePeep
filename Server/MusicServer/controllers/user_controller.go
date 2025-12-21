@@ -17,6 +17,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+/* This file is for authentication and user management. It handles user registration with password hashing, login with token generation, logout, and refresh token management. The controllers interact with MongoDB for HTTP-only cookies for token storage. */
+
 func HashPassword(password string)(string,error){
 	HashPassword, err := bcrypt.GenerateFromPassword([]byte(password),bcrypt.DefaultCost)
 	if err !=nil {
@@ -126,11 +128,9 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Name:  "access_token",
 			Value: token,
 			Path:  "/",
-			// Domain:   "localhost",
 			MaxAge:   86400,
-			Secure:   false, // False for localhost, True 
+			Secure:   false,
 			HttpOnly: true,
-			// SameSite: http.SameSiteNoneMode,
 			SameSite: http.SameSiteLaxMode,
 		})
 
@@ -139,14 +139,11 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 			Name:  "refresh_token",
 			Value: refreshToken,
 			Path:  "/",
-			// Domain:   "localhost",
 			MaxAge:   604800,
-			Secure:   false, // False for localhost, True 
+			Secure:   false,
 			HttpOnly: true,
-			// SameSite: http.SameSiteNoneMode,
 			SameSite: http.SameSiteLaxMode,
 		})
-
 	
 			c.JSON(http.StatusOK, models.UserResponse{
 				UserId: foundUser.UserID,
@@ -154,8 +151,6 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 				LastName: foundUser.LastName,
 				Email: foundUser.Email,
 				Role: foundUser.Role,
-				//Token: token,
-				//RefreshToken: refreshToken,
 				FavoriteGenres: foundUser.FavoriteGenres,
 			})
 	}
@@ -163,7 +158,6 @@ func LoginUser(client *mongo.Client) gin.HandlerFunc{
 
 func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Clear the access_token cookie
 
 		var UserLogout struct {
 			UserId string `json:"user_id"`
@@ -178,42 +172,19 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 		fmt.Println("User ID from Logout request:", UserLogout.UserId)
 
 		err = utils.UpdateAllTokens(UserLogout.UserId, "", "", client) // Clear tokens in the database
-		// Optionally, you can also remove the user session from the database if needed
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error logging out"})
 			return
 		}
-		// c.SetCookie(
-		// 	"access_token",
-		// 	"",
-		// 	-1, // MaxAge negative → delete immediately
-		// 	"/",
-		// 	"localhost", // Adjust to your domain
-		// 	true,        // Use true in production with HTTPS
-		// 	true,        // HttpOnly
-		// )
-
-		// // Clear the refresh_token cookie
-		// c.SetCookie(
-		// 	"refresh_token",
-		// 	"",
-		// 	-1,
-		// 	"/",
-		// 	"localhost",
-		// 	true,
-		// 	true,
-		// )
 
 		http.SetCookie(c.Writer, &http.Cookie{
 			Name:  "access_token",
 			Value: "",
 			Path:  "/",
-			// Domain:   "localhost",
 			MaxAge:   -1,
-			Secure:   false, // False for localhost, True 
+			Secure:   false,
 			HttpOnly: true,
-			// SameSite: http.SameSiteNoneMode,
 			SameSite: http.SameSiteLaxMode,
 		})
 
@@ -222,9 +193,8 @@ func LogoutHandler(client *mongo.Client) gin.HandlerFunc {
 			Value:    "",
 			Path:     "/",
 			MaxAge:   -1,
-			Secure:   false, // False for localhost, True 
+			Secure:   false, 
 			HttpOnly: true,
-			// SameSite: http.SameSiteNoneMode,
 			SameSite: http.SameSiteLaxMode,
 		})
 
@@ -269,17 +239,13 @@ func RefreshTokenHandler(client *mongo.Client) gin.HandlerFunc {
 			return
 		}
 
-		// c.SetCookie("access_token", newToken, 86400, "/", "localhost", true, true)          // expires in 24 hours
-		// c.SetCookie("refresh_token", newRefreshToken, 604800, "/", "localhost", true, true) //expires in 1 week
-
 		http.SetCookie(c.Writer, &http.Cookie{
     Name:     "access_token",
     Value:    newToken,
     Path:     "/",
     MaxAge:   86400,
-		Secure:   false, // False for localhost, True 
+		Secure:   false, 
 		HttpOnly: true,
-		// SameSite: http.SameSiteNoneMode,
 		SameSite: http.SameSiteLaxMode,
 })
 
@@ -288,9 +254,8 @@ http.SetCookie(c.Writer, &http.Cookie{
     Value:    newRefreshToken,
     Path:     "/",
     MaxAge:   604800,
-		Secure:   false, // False for localhost, True 
+		Secure:   false, 
 		HttpOnly: true,
-		// SameSite: http.SameSiteNoneMode,
 		SameSite: http.SameSiteLaxMode,
 })
 

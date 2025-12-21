@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
+/* This file manages global authentication state. */
+
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {

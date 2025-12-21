@@ -7,20 +7,17 @@ import (
 	"github.com/omicreativedev/TunePeep/Server/MusicServer/utils"
 )
 
-// This is an authentication guard the API routes.
-// It checks if the user has a valid token before
-// allowing them to access protected endpoints.
+/* This file is a Gin middleware that protects API routes by validating JWT access tokens. It gets tokens from incoming requests, verifies their authenticity and expiration, and stores user claims in the request context. The middleware returns 401 Unauthorized responses for missing, invalid, or expired tokens. */
 
-// gin.HandlerFunc = func(*gin.Context)
-func AuthMiddleWare() gin.HandlerFunc { // Create reusable middleware function
-	// ↑ Returns gin.HandlerFunc (which IS func(*gin.Context))
-	// ↓ This IS the gin.HandlerFunc being returned
+// Returns gin.HandlerFunc (which IS func(*gin.Context))
+func AuthMiddleWare() gin.HandlerFunc {
+	// This IS the gin.HandlerFunc being returned
 	return func(c *gin.Context) {
-		// ↓ Auth logic here
+		// Auth logic here
 		// Get the JSON Web Token from GetAccessToken() in utils/tokenUtil.go, or the error if there's an error
 		token, err := utils.GetAccessToken(c)
 
-		// Check if there's an error while extracting the token
+		// Check if there's an error while gtting tha token
 		if err != nil { // If the error is not null
 			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()}) // Send 401 error with message
 			c.Abort() // Abort the request

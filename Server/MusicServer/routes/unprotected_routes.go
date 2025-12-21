@@ -6,6 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
+/* This file defines public API routes that don't require authentication. It maps HTTP endpoints to their corresponding controller functions. */
+
 func SetupUnProtectedRoutes(router *gin.Engine, client *mongo.Client) {
 
 	router.GET("/musics", controller.GetMusics(client))

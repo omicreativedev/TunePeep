@@ -6,6 +6,8 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import "./index.css";
 
+/* This file is the main entry on the Client side and the React root, sets up BrowserRouter for navigation, and wraps the application with an AuthProvider for state management. */
+
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<AuthProvider>

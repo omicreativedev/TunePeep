@@ -23,6 +23,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
+/* This file provides functions for CRUD operations on music entries, music recommendations, reviews and ranking assignment. */
+
 var validate = validator.New()
 
 
@@ -86,12 +88,44 @@ func AddMusic(client *mongo.Client) gin.HandlerFunc {
         ctx, cancel := context.WithTimeout(c, 100*time.Second)
         defer cancel()
 
-        var music models.Music
+        var musicReq struct {
+            MusicID    string          `json:"music_id" validate:"required"`
+            Title      string          `json:"title" validate:"required,min=2,max=500"`
+            AlbumImg   string          `json:"album_img" validate:"required,url"`
+            YouTubeID  string          `json:"youtube_id" validate:"required"`
+            Genre      []models.Genre  `json:"genre" validate:"required,dive"`
+            AdminReview string         `json:"admin_review,omitempty"`
+            Ranking    models.Ranking  `json:"ranking,omitempty"`
+        }
         
         // Bind JSON from request
-        if err := c.ShouldBindJSON(&music); err != nil {
+        if err := c.ShouldBindJSON(&musicReq); err != nil {
             c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON", "details": err.Error()})
             return
+        }
+
+        // Create the complete Music struct with defaults
+        music := models.Music{
+            MusicID:     musicReq.MusicID,
+            Title:       musicReq.Title,
+            AlbumImg:    musicReq.AlbumImg,
+            YouTubeID:   musicReq.YouTubeID,
+            Genre:       musicReq.Genre,
+            AdminReview: musicReq.AdminReview,
+            Ranking:     musicReq.Ranking,
+        }
+
+        // Ensure default admin review if not provided
+        if music.AdminReview == "" {
+            music.AdminReview = " "
+        }
+
+        // Ensure default ranking if not provided
+        if music.Ranking.RankingValue == 0 || music.Ranking.RankingName == "" {
+            music.Ranking = models.Ranking{
+                RankingValue: 999,
+                RankingName: "Not_Ranked",
+            }
         }
 
         // Validate the populated music struct
@@ -99,6 +133,7 @@ func AddMusic(client *mongo.Client) gin.HandlerFunc {
             c.JSON(http.StatusBadRequest, gin.H{"error":"Validation failed", "details":err.Error()})
             return
         }
+        
         var musicCollection *mongo.Collection = database.OpenCollection("musics", client)
 
         result, err := musicCollection.InsertOne(ctx, music)

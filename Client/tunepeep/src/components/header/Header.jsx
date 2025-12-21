@@ -7,6 +7,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 
+/*This file creates the navigation header that changes based on the user's authentication.*/
+
 // Edit: handleLogout = {handleLogout}
 const Header = ({ handleLogout }) => {
 	//{handleLogout}
@@ -51,6 +53,7 @@ const Header = ({ handleLogout }) => {
 								<span className="me-3 text-light">
 									Welcome, <strong>{auth.first_name}</strong>
 								</span>
+
 								<Button
 									variant="outline-light"
 									size="sm"
@@ -58,6 +61,18 @@ const Header = ({ handleLogout }) => {
 								>
 									Logout
 								</Button>
+
+								{/* Admin-only Add Music button */}
+								{auth.role === "ADMIN" && (
+									<Button
+										variant="success"
+										size="sm"
+										className="ms-2"
+										onClick={() => navigate("/addmusic")}
+									>
+										+ Add Music
+									</Button>
+								)}
 							</>
 						) : (
 							<>

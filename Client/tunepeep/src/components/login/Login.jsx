@@ -7,6 +7,8 @@ import axiosClient from "../../api/axiosConfig";
 import logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 
+/* This file provides a login form that authenticates users with email and password,handles form submission to the backend API and redirects users to the page intended.*/
+
 const Login = () => {
 	//
 	const { setAuth } = useAuth();

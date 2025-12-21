@@ -6,6 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+/* This file defines the data structures for user management. It contains the main User model for MongoDB along with helper types for authentication (UserLogin) and API responses (UserResponse). The structs include validation tags and BSON mappings for proper database serialization. */
+
 type User struct {
 	ID              bson.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	UserID          string        `json:"user_id" bson:"user_id"`

@@ -3,6 +3,10 @@ import { useCallback, useEffect, useRef } from "react";
 import useAuth from "./useAuth";
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
+/* This file is the React hook for making authenticated API requests. It creates an Axios instance that andles 401 errors by refreshing tokens. The hook prevents multiple refresh attempts. */
+
+// Resource: https://www.digitalocean.com/community/tutorials/react-axios-react
+
 const useAxiosPrivate = () => {
 	const axiosAuth = axios.create({
 		baseURL: apiUrl,
@@ -46,9 +50,9 @@ const useAxiosPrivate = () => {
 					originalRequest.url.includes("/refresh") &&
 					error.response?.status === 401
 				) {
-					//edge case where the refresh token is invalid or expired
+					//edge case where the refresh token is invalid or expired???
 					console.error("Refresh token expired or is invalid.");
-					return Promise.reject(error); // fail directly, no retry
+					return Promise.reject(error); // fail directly. dont retry
 				}
 
 				if (

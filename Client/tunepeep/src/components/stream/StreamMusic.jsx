@@ -2,6 +2,8 @@ import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import "./StreamMusic.css";
 
+/*This file handles music streaming by embedding YouTube videos. It takes a YouTube ID from the URL and plays the corresponding video using the ReactPlayer component with controls.*/
+
 const StreamMusic = () => {
 	let params = useParams();
 	let key = params.yt_id;

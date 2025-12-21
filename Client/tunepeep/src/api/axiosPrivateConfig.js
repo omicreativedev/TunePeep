@@ -1,6 +1,10 @@
 import axios from "axios";
 
+/* This file configures an Axios HTTP client instance for making authenticated API requests.*/
+
 const API_BASE_URL = "http://localhost:8080";
+
+// Reference: https://axios-http.com/docs/instance
 
 const axiosPrivate = axios.create({
 	baseURL: API_BASE_URL,
@@ -9,20 +13,5 @@ const axiosPrivate = axios.create({
 	},
 	withCredentials: true, // important for HTTP-only cookies
 });
-
-// Add a request interceptor to include the token
-// axiosPrivate.interceptors.request.use(
-//   (config) => {
-//     const userString = localStorage.getItem('user');
-//     const user = JSON.parse(userString)
-//     if (user) {
-//       config.headers.Authorization = `Bearer ${user?.token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 export default axiosPrivate;

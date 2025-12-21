@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosConfig";
 import logo from "../../assets/logo.png";
 
+/*This file is aa user registration form with input fields for personal details and genre preferences. It validates password confirmation, handles form submission to the backend API, and redirects users to the login page after successful registration.*/
+
 const Register = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");

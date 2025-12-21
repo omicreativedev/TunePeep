@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Musics from "../musics/Musics";
-// import Spinner from '../spinner/Spinner';
+import Spinner from "../spinner/Spinner";
+
+/*This file gets and displays music recommendations for logged-in users. It calls a protected API endpoint to get suggested music based on the user's preferences and passes the results to a shared music display component.*/
 
 const Recommended = () => {
 	const [musics, setMusics] = useState([]);
@@ -28,14 +30,7 @@ const Recommended = () => {
 	}, []);
 
 	return (
-		<>
-			{loading ? (
-				//<Spinner/>
-				<h2>Loading...</h2>
-			) : (
-				<Musics musics={musics} message={message} />
-			)}
-		</>
+		<>{loading ? <Spinner /> : <Musics musics={musics} message={message} />}</>
 	);
 };
 export default Recommended;

@@ -12,13 +12,11 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-// Establish connection to MongoDB server
+/* This file manages the MongoDB connection. It provides functions to establish a database connection using environment variables and to open specific collections within the database. */
+
 // Reference: https://www.mongodb.com/docs/drivers/go/current/usage-examples/connect/
 
-// func DBInstance() *mongo.Client {
 func Connect() *mongo.Client {
- 
-// func Connect() *mongo.Client { 
 
 	err := godotenv.Load(".env")
 
@@ -45,11 +43,9 @@ func Connect() *mongo.Client {
 	return client
 }
 
-// var Client *mongo.Client = DBInstance()
-// var Client *mongo.Client = Connect()
-
-func OpenCollection(collectionName string, client *mongo.Client) *mongo.Collection {
  // Open specified collection in specified database
+func OpenCollection(collectionName string, client *mongo.Client) *mongo.Collection {
+
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Println("Warning: unable to find .env file for database_connection")
@@ -58,10 +54,6 @@ func OpenCollection(collectionName string, client *mongo.Client) *mongo.Collecti
 	databaseName := os.Getenv("DATABASE_NAME")
 
 	fmt.Println("DATABASE_NAME: ", databaseName)
-
-	//if Client == nil {
-	//	log.Fatal("MongoDB client is not initialized")
-	//}
 
 	collection := client.Database(databaseName).Collection(collectionName)
 

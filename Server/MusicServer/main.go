@@ -11,12 +11,12 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-
-	// controller "github.com/omicreativedev/TunePeep/Server/MusicServer/controllers"
 	"github.com/omicreativedev/TunePeep/Server/MusicServer/database"
 	"github.com/omicreativedev/TunePeep/Server/MusicServer/routes"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
+
+/* This file is the main entry point for the TunePeep MusicServer API. It initializes a Gin web server with CORS configuration, establishes a MongoDB connection, and sets up both protected and unprotected routes. The server handles environment variable loading, database connectivity, and shutdown procedures on port 8080. */
 
 func main() {
 	// Initialize Gin router with middleware logger and recovery
@@ -25,31 +25,22 @@ func main() {
 	// Remove trailing slashes for consistency if needed (uncomment)
 	// router.RemoveExtraSlash = true
 
-	// Health check endpoint
-	// c is the context from the incoming client which allows us to call various functionalities on the c function handler method
+	// c is the context from the incoming client which allows us
+	// to call various functionalities on the c function handler method
 	// This is a test endpoint to verify the server is running
-	router.GET("/hello", func(c *gin.Context) { // go to localhost http://localhost:8080/hello
+	router.GET("/hello", func(c *gin.Context) { // Go to localhost http://localhost:8080/hello
 		c.String(200, "Hello! We are online!") // http status 200 (success)
 	})
 
 	// Load environment variables from .env file
+	// In production version, environmental variables are configured
+	// in Reder/Vercel
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Unable to find .env file for main")
+		log.Println("Unable to find .env file for main.go")
 	}
 
-	 //----------------------------
-
-	// change later
-// router.Use(cors.New(cors.Config{
-//         AllowOrigins:     []string{"http://localhost:8072", "http://localhost:3000", "http://localhost:5173"},
-//         AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
-//         AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "Accept"},
-//         ExposeHeaders:    []string{"Content-Length"},
-//         AllowCredentials: true,
-//         MaxAge:           12 * time.Hour,
-//     }))
-allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
+	allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 
 	var origins []string
 	if allowedOrigins != "" {
@@ -59,8 +50,9 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 			log.Println("Allowed Origin:", origins[i])
 		}
 	} else {
-		origins = []string{"http://localhost:8070"} // Change this for production
-		log.Println("Allowed Origin: http://localhost:8070") // Change this for production
+		// Change this for production from 8080 to the server port
+		origins = []string{"http://localhost:8080"} 
+		log.Println("Allowed Origin: http://localhost:8080")
 	}
 
 	config := cors.Config{}
@@ -73,8 +65,6 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 
 	router.Use(cors.New(config))
 
-
-	//---------------------------
 	router.Use(gin.Logger())
 
 
@@ -87,15 +77,13 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 		log.Fatalf("Failed to reach server: %v", err)
 	}
 
-	// Defer database disconnection and ensure clean shutdown
+	// Clean shutdown
 	defer func() {
 		err := client.Disconnect(context.Background())
 		if err != nil {
 			log.Fatalf("Failed to disconnect from MongoDB: %v", err)
 		}
 	}()
-	
-	// end cors
 
 	// Set up application routes
 	// Unprotected routes (public access)
@@ -104,8 +92,9 @@ allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 	routes.SetupProtectedRoutes(router, client)
 	
 	// Start the HTTP server on port 8080
-	// Server not working: this error message will display if the server fails to start
-	// We want it to be 8080 for Render.com but it can change
+	// Server not working: this error message will display if 
+	// the server fails to start. We want it to be 8080 for
+	// Render.com but it can change
 	if err := router.Run(":8080"); err != nil { // port 8080
 		fmt.Println("Server failed, dude!", err)
 	}
