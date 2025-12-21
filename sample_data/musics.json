@@ -1,0 +1,444 @@
+[{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d521"
+  },
+  "music_id": "5LEXck3kfixFaA3CqVE7bC",
+  "title": "Deftones - White Pony",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/whitepony_cover_2k.png",
+  "youtube_id": "v1npHeOskdQ",
+  "genre": [
+    {
+      "genre_id": 9,
+      "genre_name": "Metal"
+    },
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 13,
+      "genre_name": "Grunge"
+    }
+  ],
+  "admin_review": "This album was GREAT.",
+  "ranking": {
+    "ranking_value": 1,
+    "ranking_name": "Excellent"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d522"
+  },
+  "music_id": "6hPkbAV3ZXpGZBGUvL6jVM",
+  "title": "Linkin Park - Hybrid Theory",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/hybridtheory_cover_2k.png",
+  "youtube_id": "A2Ojfv3ziXg",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 3,
+      "genre_name": "Rap"
+    }
+  ],
+  "admin_review": "I didn't love this album but I didn't hate it either.",
+  "ranking": {
+    "ranking_value": 3,
+    "ranking_name": "Okay"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d523"
+  },
+  "music_id": "4LH4d3cOWNNsVw41Gqt2kv",
+  "title": "Pink Floyd - The Dark Side of the Moon",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/darkside_cover_2k.png",
+  "youtube_id": "k9ynZnEBtvw",
+  "genre": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    }
+  ],
+  "admin_review": "I didn't love this album but I didn't hate it either.",
+  "ranking": {
+    "ranking_value": 3,
+    "ranking_name": "Okay"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d524"
+  },
+  "music_id": "6ZG5lRT77aJ3btmArcykra",
+  "title": "Coldplay - Parachutes",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/parachutes_cover_2k.png",
+  "youtube_id": "uFcOuYnNe-c",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    }
+  ],
+  "admin_review": "This is really not so great.",
+  "ranking": {
+    "ranking_value": 4,
+    "ranking_name": "Bad"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d525"
+  },
+  "music_id": "58NXIEYqmq5dQHg9nV9duM",
+  "title": "Alice In Chains - Dirt",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/dirt_cover_2k.png",
+  "youtube_id": "TyabsjLF8XI",
+  "genre": [
+    {
+      "genre_id": 13,
+      "genre_name": "Grunge"
+    },
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 9,
+      "genre_name": "Metal"
+    }
+  ],
+  "admin_review": "I hate this album",
+  "ranking": {
+    "ranking_value": 5,
+    "ranking_name": "Terrible"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d526"
+  },
+  "music_id": "1bt6q2SruMsBtcerNVtpZB",
+  "title": "Fleetwood Mac - Rumours",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/rumours_cover_2k.png",
+  "youtube_id": "-uFU79MGj00",
+  "genre": [
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 10,
+      "genre_name": "Folk"
+    },
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    }
+  ],
+  "admin_review": "I did not like this!",
+  "ranking": {
+    "ranking_value": 4,
+    "ranking_name": "Bad"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d527"
+  },
+  "music_id": "4ddA4oHvhrGx196qF5ZyQe",
+  "title": "Red Hot Chili Peppers - Blood Sugar Sex Magik",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/bloodsugar_cover_2k.png",
+  "youtube_id": "4YREn-VEhHM",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 3,
+      "genre_name": "Rap"
+    },
+    {
+      "genre_id": 16,
+      "genre_name": "Funk"
+    }
+  ],
+  "admin_review": "The album was aweful! I really hated it.",
+  "ranking": {
+    "ranking_value": 5,
+    "ranking_name": "Terrible"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d528"
+  },
+  "music_id": "4uG8q3GPuWHQlRbswMIRS6",
+  "title": "Green Day - Dookie",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/dookie_cover_2k.png",
+  "youtube_id": "yj4s8gyDXfc",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 14,
+      "genre_name": "Punk"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    }
+  ],
+  "admin_review": "I didn't love this album but I didn't hate it either.",
+  "ranking": {
+    "ranking_value": 3,
+    "ranking_name": "Okay"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d529"
+  },
+  "music_id": "5wQnmLuC1W7ATsArWACrgW",
+  "title": "My Chemical Romance - The Black Parade",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/mychemical_cover_2k.png",
+  "youtube_id": "8iPG_vmj6kA",
+  "genre": [
+    {
+      "genre_id": 15,
+      "genre_name": "Emo"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 14,
+      "genre_name": "Punk"
+    }
+  ],
+  "admin_review": "An okay but dark album.",
+  "ranking": {
+    "ranking_value": 3,
+    "ranking_name": "Okay"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d52a"
+  },
+  "music_id": "4Gfnly5CzMJQqkUFfoHaP3",
+  "title": "Linkin Park - Meteora",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/meteora_cover_2k.png",
+  "youtube_id": "yfoUZl7Y8TU",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 3,
+      "genre_name": "Rap"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    }
+  ],
+  "admin_review": "The album was fantastic and excellent!",
+  "ranking": {
+    "ranking_value": 1,
+    "ranking_name": "Excellent"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d52b"
+  },
+  "music_id": "1uvyZBs4IZYRebHIB1747m",
+  "title": "Prince - Purple Rain",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/purplerain_cover_2k.png",
+  "youtube_id": "81jraQDTJJk",
+  "genre": [
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 4,
+      "genre_name": "R&B"
+    },
+    {
+      "genre_id": 16,
+      "genre_name": "Funk"
+    }
+  ],
+  "admin_review": "It wasn't good but it wasn't too bad either.",
+  "ranking": {
+    "ranking_value": 3,
+    "ranking_name": "Okay"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d52c"
+  },
+  "music_id": "70GAqt2avSiKBJ2IEymou1",
+  "title": "Pantera - Far Beyond Driven",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/farbeyond_cover_2k.png",
+  "youtube_id": "rIdjLL13gdI",
+  "genre": [
+    {
+      "genre_id": 11,
+      "genre_name": "Alternative"
+    },
+    {
+      "genre_id": 9,
+      "genre_name": "Metal"
+    },
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    }
+  ],
+  "admin_review": "This was an excellent album!",
+  "ranking": {
+    "ranking_value": 1,
+    "ranking_name": "Excellent"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d52d"
+  },
+  "music_id": "5EyIDBAqhnlkAHqvPRwdbX",
+  "title": "Led Zeppelin - Led Zeppelin IV",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/ledzepp_cover_2k.png",
+  "youtube_id": "0hLESLXqBLI",
+  "genre": [
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 10,
+      "genre_name": "Folk"
+    },
+    {
+      "genre_id": 4,
+      "genre_name": "R&B"
+    }
+  ],
+  "admin_review": "Terrible Album",
+  "ranking": {
+    "ranking_value": 5,
+    "ranking_name": "Terrible"
+  }
+},
+{
+  "_id": {
+    "$oid": "69265c940c2431e2104ab2db"
+  },
+  "music_id": "75bLu4Ung5QbMdJYxx7wTI",
+  "title": "The Doors - Soft Parade",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/bloodsugar_cover_2k.png",
+  "youtube_id": "3g-62pbX13U",
+  "genre": [
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    },
+    {
+      "genre_id": 6,
+      "genre_name": "Jazz"
+    }
+  ],
+  "admin_review": "Bad Album",
+  "ranking": {
+    "ranking_value": 4,
+    "ranking_name": "bad"
+  }
+},
+{
+  "_id": {
+    "$oid": "6922b99a25ef0dc30037d520"
+  },
+  "music_id": "2Pr1nZpt8A8WP7QYpyq6L3",
+  "title": "Tom Petty - Wildflowers",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/wildflowers_cover_2k.png",
+  "youtube_id": "c_m1EO_vRWw",
+  "genre": [
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    },
+    {
+      "genre_id": 1,
+      "genre_name": "Pop"
+    }
+  ],
+  "admin_review": "This album is excellent.",
+  "ranking": {
+    "ranking_value": 1,
+    "ranking_name": "Excellent"
+  }
+},
+{
+  "_id": {
+    "$oid": "6946f4b70f1e229ef826eec5"
+  },
+  "music_id": "3ZGUBwDiY5HPOcWv4SBPQz",
+  "title": "Test",
+  "album_img": "https://raw.githubusercontent.com/omicreativedev/TunePeep/refs/heads/main/covers_2k/example.png",
+  "youtube_id": "c_m1EO_vRWz",
+  "genre": [
+    {
+      "genre_id": 2,
+      "genre_name": "Rock"
+    }
+  ],
+  "admin_review": " ",
+  "ranking": {
+    "ranking_value": 999,
+    "ranking_name": "Not_Ranked"
+  }
+}]
